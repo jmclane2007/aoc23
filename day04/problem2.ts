@@ -1,13 +1,11 @@
 import * as fs from 'fs';
 
-let cardSum: number[] = [];
-
 function processInstructions() {
   const input = fs.readFileSync("input.txt", "utf8");
   const splitInput: string[] = input.split("\r\n");
-  cardSum = new Array(splitInput.length).fill(1);
+  const cardSum = new Array(splitInput.length).fill(1);
   for (let i = 0; i < splitInput.length; i++) {
-    evaluateCard(splitInput[i], i);
+    evaluateCard(splitInput[i], i, cardSum);
   }
   let total = 0;
   for(const sum of cardSum) {
@@ -16,7 +14,7 @@ function processInstructions() {
   console.log(total);
 }
 
-function evaluateCard(line: string, index: number): number {
+function evaluateCard(line: string, index: number, cardSum: number[]): number {
   let total = 0;
   const leftSide = line.substring(line.indexOf(":") + 1, line.indexOf("|") - 1).split(/\s+/);
   const winningNums = new Set<string>();
